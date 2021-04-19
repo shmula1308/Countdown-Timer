@@ -1,0 +1,73 @@
+/* RESETS */
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+/* GENERAL STYLING */
+
+body {
+  margin: 0;
+  font-family: "Heebo", sans-serif;
+}
+
+/* BUTTONS */
+
+/* LAYOUT */
+
+.page-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+.events-menu {
+  background-color: #44849b;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #c2e8f6;
+  height: 100vh;
+}
+
+.main-timer-container {
+  position: relative;
+  background-color: pink;
+  width: 750px;
+}
+
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  background-color: #44849b;
+  width: 700px;
+  min-height: 300px;
+}
+
+.main-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #18323d;
+  min-height: 200px;
+  font-size: 4rem;
+  font-weight: 100;
+  color: #e6e7e7;
+}
