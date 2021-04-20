@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;400;700&display=swap"
       rel="stylesheet"
     />
     <script src="js/script.js" defer></script>
@@ -35,22 +35,29 @@
           <div class="timer-display">
             <h2 class="main-event-title">Anniversary</h2>
             <div class="main-timer">
-              01<span class="days">Day</span>01<span class="hours">Hour</span
-              >46<span class="min">Min</span>53<span class="sec">Sec</span>
+              <p>
+                01<span class="days">Day</span>01<span class="hours">Hour</span
+                >01<span class="min">Min</span>53<span class="sec">Sec</span>
+              </p>
             </div>
             <div class="display-controls">
+              <i class="fas fa-save"></i>
+              <i class="fas fa-save"></i>
+              <i class="fas fa-save"></i>
               <i class="fas fa-save"></i>
             </div>
           </div>
         </div>
         <form>
-          <label for="event">Event</label>
-          <input type="text" id="event" />
-          <label for="date">Date</label>
-          <input type="text" id="date" />
-          <label for="time">Time(optional)</label>
-          <input type="text" id="time" />
-          <button type="button" id="start">Start</button>
+          <div class="inputs-container">
+            <label for="event">Event</label>
+            <input type="text" id="event" placeholder="Event name" />
+            <label for="date">Date</label>
+            <input type="text" id="date" placeholder="Event date" />
+            <label for="time">Time (optional)</label>
+            <input type="text" id="time" placeholder="Event time" />
+            <button type="button" class="btn" id="start">Start</button>
+          </div>
         </form>
       </main>
     </div>
