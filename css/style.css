@@ -132,7 +132,7 @@ form {
   font-size: 0.8em;
 }
 
-input[type="text"] {
+input {
   margin-bottom: 1.5em;
   padding: 0.5em;
   border: none;
