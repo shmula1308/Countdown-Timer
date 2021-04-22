@@ -35,10 +35,20 @@ input {
 
 .page-container {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 400px 1fr;
 }
 .events-menu {
   background-color: #44849b;
+}
+
+.event {
+  padding: 1.5em;
+  text-align: center;
+  background-color: #18323d;
+  color: #e6e7e7;
+  font-size: 1.2rem;
+  font-weight: 100;
+  margin-bottom: 2px;
 }
 
 main {
@@ -89,7 +99,10 @@ main {
 }
 
 .main-timer p {
-  display: flex;
+  text-align: center;
+  width: 90%;
+  font-size: 50px;
+  padding-left: 0.2em;
 }
 
 .main-event-title {
