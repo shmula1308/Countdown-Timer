@@ -51,6 +51,7 @@ input {
   color: #c2e8f6;
 }
 .event {
+  position: relative;
   padding: 1.5em;
   text-align: center;
   background-color: #18323d;
@@ -58,6 +59,17 @@ input {
   font-size: 1.2rem;
   font-weight: 100;
   margin-bottom: 2px;
+}
+
+.trash {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.trash:hover {
+  color: darkcyan;
 }
 
 main {

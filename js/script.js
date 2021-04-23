@@ -2,6 +2,8 @@
    let form = document.querySelector('#event-form');
    const displayControls = document.querySelector('.display-controls');
    const eventsMenu = document.querySelector('.events-menu');
+   const removeSideMenuEvent = document.getElementsByTagName('i');
+   let timer = document.querySelector('.main-timer');
 
 
 
@@ -9,6 +11,7 @@
    let time;
    let eventName;
    let timmy;
+   let sideTimmy;
 
    let eventsArr = [];
 
@@ -32,7 +35,12 @@ function Event(eventName,date,time) {
  let countDown;
 
 
-  //  Event: Save and Reset
+ document.addEventListener('DOMContentLoaded', () => {
+      getStore();
+      sideTimmy = setInterval(addEventToSideMenu,1000);
+ })
+
+  //  Events: Save and Reset
   displayControls.addEventListener('click',(ev) => {
       if(ev.target.matches('.save')) {
         if(!eventName || !date) {
@@ -46,15 +54,49 @@ function Event(eventName,date,time) {
             }
           })
           if(check) {
+            alert("The event already exists! Please rename the event.")
             return;
           } else {
             eventsArr.push(event);
-            setInterval(addEventToSideMenu,1000)
+            setStore(eventsArr)
+            sideTimmy = setInterval(addEventToSideMenu,1000)
           }
         }
         
       }
+      if(ev.target.matches('.reset')) {
+        resetTimer()
+        clearInterval(timmy);
+        
+      }
+      
   })
+
+  //Event: remove side menu event
+
+  eventsMenu.addEventListener('click',(ev) => {
+     if(ev.target.matches('.trash')) {
+       let id = ev.target.parentNode.dataset.evName;
+       console.log(id)
+       ev.target.parentNode.remove();
+       getStore();
+       eventsArr = eventsArr.filter(e => e.eventName != id)
+       setStore(eventsArr);
+
+     }
+  })
+
+  function setStore(evArr) {
+     localStorage.setItem('events',JSON.stringify(evArr));
+  }
+
+  function getStore() {
+     if(JSON.parse(localStorage.getItem('events')) === null) {
+      eventsArr = []
+     } else {
+      eventsArr = JSON.parse(localStorage.getItem('events'))
+     } 
+  }
 
   function addEventToSideMenu() {
     let df = new DocumentFragment()
@@ -82,17 +124,26 @@ function Event(eventName,date,time) {
         let minutes = Math.floor((distance % (1000*60*60))/(1000*60));
         let seconds = Math.floor((distance % (1000*60))/(1000));
 
+       
+
         let div = document.createElement('div');
         div.classList.add('event');
+        div.dataset.evName = evName;
         div.innerHTML = `<h4 class="event-title">${evName}</h4>
+        <i class="fas fa-trash-alt trash"></i>
         <div class="timer">
-        ${days}<span class="days"> Day</span> ${hours}<span class="hours"> Hour</span>
+        ${days}<span class="days">${days > 1 ? 'Days' : days === 0 ? 'Days' : 'Day'}</span> ${hours}<span class="hours"> ${hours > 1 ? 'Hours' : hours === 0 ? 'Hours' : 'Hour'}</span>
         ${minutes}<span class="min"> Min</span> ${seconds}<span class="sec"> Sec</span>
         </div>`
+        if(distance < 0) {
+          div.innerHTML = 'DONE';
+          clearInterval(sideTimmy);
+          
+        }
 
         df.append(div);
     })
-    eventsMenu.innerHTML = "";
+    eventsMenu.innerHTML = "<h2 class='events-menu-title'>Events</h2>";
     eventsMenu.append(df);
   }
 
@@ -141,17 +192,7 @@ function Event(eventName,date,time) {
       form.reset();
   })
 
-  // function addEventToSideMenu() {
-  //   countDown = createCountDown();
-  //   eventsMenu.innerHTML = `<div class="event">
-  //   <h4 class="event-title">${countDown.evName}</h4>
-  //   <div class="timer">
-  //   ${countDown.days}<span class="days"> Day</span> ${countDown.hr}<span class="hours"> Hour</span>
-  //   ${countDown.min}<span class="min"> Min</span> ${countDown.sec}<span class="sec"> Sec</span>
-  //   </div>
-  //   </div>`
-  // }
-    
+
   
     function updateTimer() {
         countDown = createCountDown();
@@ -168,9 +209,9 @@ function Event(eventName,date,time) {
         }
 
         document.querySelector('.main-event-title').textContent = eventName;
-        let timer = document.querySelector('.main-timer');
+        
         timer.innerHTML = `<p>
-        ${countDown.days}<span class="days">${countDown.days > 1 ? d : "Day"}</span>${countDown.hr}<span class="hours">${countDown.hours > 1 ? h : "Hour"}</span
+        ${countDown.days}<span class="days">${countDown.days > 1 ? d : countDown.days === 0 ? d : 'Day'}</span>${countDown.hr}<span class="hours">${countDown.hr > 1 ? h : countDown.hr === 0 ? h : "Hour"}</span
         >${countDown.min}<span class="min">Min</span>${countDown.sec}<span class="sec">Sec</span>
         </p>`
     }
@@ -199,10 +240,13 @@ function Event(eventName,date,time) {
     }
 
    function resetTimer() {
-     document.querySelector('.main-event-title').textContent = "";
+    document.querySelector('.main-event-title').textContent = "";
     let timer = document.querySelector('.main-timer');
     timer.innerHTML = `<p>
     00<span class="days">Day</span>00<span class="hours">Hour</span
     >00<span class="min">Min</span>00<span class="sec">Sec</span>
     </p>`
+    date = "";
+    time = "";
+    eventName = "";
    }
